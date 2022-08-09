@@ -1,16 +1,28 @@
 N = int(input())
-if N % 2 != 0:
-    exit()
 
 
-def generate_sequence(head: int, tail: int, tmp: str):
-    if head > 0:
-        generate_sequence(head-1, tail, tmp+'(')
-    if tail > 0 and (head < tail):
-        generate_sequence(head, tail-1, tmp+')')
+def generate_parentheses_set(p: str, length: int, head: int, tail: int):
+    if len(p) == length:
+        if head == tail:
+            head_count = 0
+            tail_count = 0
+            flag = 1
+            for i in range(length):
+                if p[i] == '(':
+                    head_count += 1
+                else:
+                    tail_count += 1
+                if head_count < tail_count:
+                    flag = 0
+                    break
+            if flag:
+                print(p)
     else:
-        if len(tmp) == N:
-            print(tmp)
+        generate_parentheses_set(p+'(', length, head+1, tail)
+        generate_parentheses_set(p+')', length, head, tail+1)
 
 
-generate_sequence(N//2, N//2, '')
+if N % 2 == 1:
+    exit()
+else:
+    generate_parentheses_set('', N, 0, 0)
