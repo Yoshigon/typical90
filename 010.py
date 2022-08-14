@@ -1,23 +1,19 @@
 N = int(input())
-score1 = [0] * N
-score2 = [0] * N
-for i in range(N):
+class_one = [0] * (N+1)
+class_two = [0] * (N+1)
+
+for i in range(1, N+1):
     c, p = map(int, input().split())
     if c == 1:
-        score1[i] += p
+        class_one[i] = p
     else:
-        score2[i] += p
+        class_two[i] = p
 
-for i in range(1, N):
-    score1[i] += score1[i-1]
-    score2[i] += score2[i-1]
+for i in range(N):
+    class_one[i+1] += class_one[i]
+    class_two[i+1] += class_two[i]
 
 Q = int(input())
 for _ in range(Q):
     l, r = map(int, input().split())
-    l -= 1
-    r -= 1
-    if l == 0:
-        print(score1[r], score2[r])
-    else:
-        print(score1[r]-score1[l-1], score2[r]-score2[l-1])
+    print(class_one[r] - class_one[l-1], class_two[r] - class_two[l-1])
