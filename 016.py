@@ -1,17 +1,11 @@
 N = int(input())
-coins = list(map(int, input().split()))
-coins.sort(reverse=True)
+A, B, C = sorted(map(int, input().split()), reverse=True)
 ans = 10000
 
-for i in range(10000):
-    tmp1 = coins[0] * i
-    if tmp1 > N:
-        break
-    for j in range(10000):
-        tmp2 = coins[0] * i + coins[1] * j
-        if tmp2 > N:
-            break
-        if (N - tmp2) % coins[2] == 0:
-            ans = min(ans, i + j + (N - tmp2) // coins[2])
+for a in range(N // A, -1, -1):
+    for b in range((N - A * a) // B, -1, -1):
+        if (N - (A * a + B * b)) % C == 0:
+            c = (N - (A * a + B * b)) // C
+            ans = min(ans, a+b+c)
 
 print(ans)
