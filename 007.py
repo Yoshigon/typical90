@@ -8,8 +8,8 @@ for _ in range(Q):
     tmp = int(input())
     idx = bisect.bisect_left(A, tmp)
     if idx == 0:
-        print(abs(tmp - A[0]))
+        print(A[0] - tmp)
     elif idx == N:
-        print(abs(tmp - A[N-1]))
+        print(tmp - A[N-1])
     else:
-        print(min(abs(tmp - A[idx]), abs(tmp - A[idx-1])))
+        print(min(A[idx] - tmp, tmp - A[idx-1]))

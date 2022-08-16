@@ -54,28 +54,34 @@ class UnionFind:
 
 H, W = map(int, input().split())
 Q = int(input())
-uf = UnionFind(H*W)
 red = {}
-direction = ((0, 1), (0, -1), (1, 0), (-1, 0))
+ans = []
+uf = UnionFind(H*W)
 
 for _ in range(Q):
-    query = list(map(int, input().split()))
-    if query[0] == 1:
-        r = query[1] - 1
-        c = query[2] - 1
-        red[f'{r}-{c}'] = 1
-        for d in direction:
-            r_tmp = r-d[0]
-            c_tmp = c-d[1]
-            if f'{r_tmp}-{c_tmp}' in red:
-                uf.union(W*r+c, W*r_tmp+c_tmp)
-
-    elif query[0] == 2:
-        ra, ca, rb, cb = query[1]-1, query[2]-1, query[3]-1, query[4]-1
-        if f'{ra}-{ca}' in red:
-            if uf.same(W*ra+ca, W*rb+cb):
-                print('Yes')
-            else:
-                print('No')
+    tmp = list(map(int, input().split()))
+    if tmp[0] == 1:
+        r = tmp[1]-1
+        c = tmp[2]-1
+        red[r*W+c] = 1
+        if (r-1)*W+c in red:  # (r-1, c)
+            uf.union(W*r+c, W*(r-1)+c)
+        if (r+1)*W+c in red:  # (r+1, c)
+            uf.union(W*r+c, W*(r+1)+c)
+        if 0 < c:
+            if W*r+c-1 in red:  # (r, c-1)
+                uf.union(W*r+c, W*r+c-1)
+        if c < W-1:
+            if W*r+c+1 in red:  # (r, c+1)
+                uf.union(W*r+c, W*r+c+1)
+    elif tmp[0] == 2:
+        a = (tmp[1]-1) * W + tmp[2]-1
+        b = (tmp[3]-1) * W + tmp[4]-1
+        if a not in red:
+            ans.append('No')
+        elif uf.same(a, b):
+            ans.append('Yes')
         else:
-            print('No')
+            ans.append('No')
+
+print(*ans, sep='\n')

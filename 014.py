@@ -1,8 +1,9 @@
 N = int(input())
-A = sorted(list(map(int, input().split())))
-B = sorted(list(map(int, input().split())))
+A = sorted(map(int, input().split()))
+B = sorted(map(int, input().split()))
 
-ans = 0
+inconvenience = 0
 for i in range(N):
-    ans += abs(A[i]-B[i])
-print(ans)
+    inconvenience += abs(A[i] - B[i])
+
+print(inconvenience)
