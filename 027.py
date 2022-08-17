@@ -1,7 +1,10 @@
 N = int(input())
-user_names = {}
+ids = dict()
+
 for i in range(N):
-    tmp = input()
-    if tmp not in user_names:
-        user_names[tmp] = 1
-        print(i+1)
+    s = input()
+    if s not in ids:
+        ids[s] = i+1
+
+for v in sorted(ids.values()):
+    print(v)
