@@ -1,11 +1,11 @@
 K = int(input())
+MOD = 10**9+7
+
 if K % 9 != 0:
     print(0)
     exit()
 
-MOD = 10 ** 9 + 7
-dp = [0] * (K+10)  # 各けたの和がiとなる数の個数はdp[i]
-dp[0] = 1
+dp = [1] + [0] * (K+8)
 
 for i in range(K):
     for j in range(1, 10):
