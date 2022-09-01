@@ -1,10 +1,8 @@
 N = int(input())
-ans = 1
 MOD = 10 ** 9 + 7
-
+ans = 1
 for _ in range(N):
-    dice = list(map(int, input().split()))
-    ans *= sum(dice)
+    dice = sum(list(map(int, input().split())))
+    ans *= dice
     ans %= MOD
-
 print(ans)
